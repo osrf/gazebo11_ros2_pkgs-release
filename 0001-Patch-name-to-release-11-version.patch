@@ -1,0 +1,42 @@
+From 34691991c57c74f15170362c46caf40122f09e4f Mon Sep 17 00:00:00 2001
+From: Jose Luis Rivero <jrivero@osrfoundation.org>
+Date: Fri, 8 May 2020 15:12:24 +0200
+Subject: [PATCH 1/2] Patch name to release 11 version
+
+---
+ debian/changelog.em | 2 +-
+ debian/control.em   | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/debian/changelog.em b/debian/changelog.em
+index 3585909..26bf9ba 100644
+--- a/debian/changelog.em
++++ b/debian/changelog.em
+@@ -1,4 +1,4 @@
+-@[for change_version, change_date, changelog, main_name, main_email in changelogs]@(Package) (@(change_version)@(DebianInc)@(Distribution)) @(Distribution); urgency=high
++@[for change_version, change_date, changelog, main_name, main_email in changelogs]@(Package.replace('gazebo-','gazebo11-')) (@(change_version)@(DebianInc)@(Distribution)) @(Distribution); urgency=high
+ 
+ @(changelog)
+ 
+diff --git a/debian/control.em b/debian/control.em
+index 7cbf65a..0651d2c 100644
+--- a/debian/control.em
++++ b/debian/control.em
+@@ -1,4 +1,4 @@
+-Source: @(Package)
++Source: @(Package.replace('gazebo-','gazebo11-'))
+ Section: misc
+ Priority: extra
+ Maintainer: @(Maintainer)
+@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= @(debhelper_version).0.0), @(', '.join(BuildDepends
+ Homepage: @(Homepage)
+ Standards-Version: 3.9.2
+ 
+-Package: @(Package)
++Package: @(Package.replace('gazebo-','gazebo11-'))
+ Architecture: any
+ Depends: ${shlibs:Depends}, ${misc:Depends}, @(', '.join(Depends))
+ @[if Conflicts]Conflicts: @(', '.join(Conflicts))@\n@[end if]@
+-- 
+2.17.1
+
