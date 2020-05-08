@@ -1,4 +1,4 @@
-From b11d43fcc0ba7e42d115fb58b023c65e42278593 Mon Sep 17 00:00:00 2001
+From ab8e6c7cce2a3dc3721b79d7fdab2bf9d0fb0e44 Mon Sep 17 00:00:00 2001
 From: Jose Luis Rivero <jrivero@osrfoundation.org>
 Date: Fri, 8 May 2020 15:14:01 +0200
 Subject: [PATCH 1/2] Patch name to release 11 version
@@ -19,14 +19,14 @@ index 3585909..26bf9ba 100644
  @(changelog)
  
 diff --git a/debian/control.em b/debian/control.em
-index 7cbf65a..0651d2c 100644
+index 6d7b65c..330bdd7 100644
 --- a/debian/control.em
 +++ b/debian/control.em
 @@ -1,4 +1,4 @@
 -Source: @(Package)
 +Source: @(Package.replace('gazebo-','gazebo11-'))
  Section: misc
- Priority: extra
+ Priority: optional
  Maintainer: @(Maintainer)
 @@ -6,7 +6,7 @@ Build-Depends: debhelper (>= @(debhelper_version).0.0), @(', '.join(BuildDepends
  Homepage: @(Homepage)
