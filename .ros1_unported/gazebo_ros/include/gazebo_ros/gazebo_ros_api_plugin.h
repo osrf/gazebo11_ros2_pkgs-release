@@ -50,7 +50,6 @@
 
 // Topics
 #include "geometry_msgs/Vector3.h"
-#include "geometry_msgs/Wrench.h"
 #include "geometry_msgs/Pose.h"
 #include "geometry_msgs/Twist.h"
 
@@ -96,18 +95,6 @@ public:
 
   /// \brief advertise services
   void advertiseServices();
-
-  /// \brief
-  bool setPhysicsProperties(gazebo_msgs::SetPhysicsProperties::Request &req,gazebo_msgs::SetPhysicsProperties::Response &res);
-
-  /// \brief
-  bool getPhysicsProperties(gazebo_msgs::GetPhysicsProperties::Request &req,gazebo_msgs::GetPhysicsProperties::Response &res);
-
-  /// \brief
-  bool applyJointEffort(gazebo_msgs::ApplyJointEffort::Request &req,gazebo_msgs::ApplyJointEffort::Response &res);
-
-  /// \brief
-  bool setModelConfiguration(gazebo_msgs::SetModelConfiguration::Request &req,gazebo_msgs::SetModelConfiguration::Response &res);
 
 private:
 

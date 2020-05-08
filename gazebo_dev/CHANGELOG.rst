@@ -2,6 +2,21 @@
 Changelog for package gazebo_dev
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+3.4.3 (2020-02-18)
+------------------
+
+3.4.2 (2019-11-12)
+------------------
+
+3.4.1 (2019-10-10)
+------------------
+
+3.4.0 (2019-10-03)
+------------------
+* Add maintainer (`#985 <https://github.com/ros-simulation/gazebo_ros_pkgs/issues/985>`_)
+  Signed-off-by: Louise Poubel <louise@openrobotics.org>
+* Contributors: chapulina
+
 3.3.4 (2019-09-18)
 ------------------
 

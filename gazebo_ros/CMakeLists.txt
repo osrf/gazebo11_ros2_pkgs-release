@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 project(gazebo_ros)
 
-
 # Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
   set(CMAKE_CXX_STANDARD 14)
@@ -14,17 +13,14 @@ endif()
 
 find_package(ament_cmake REQUIRED)
 find_package(builtin_interfaces REQUIRED)
-find_package(rclcpp REQUIRED)
 find_package(gazebo_dev REQUIRED)
 find_package(gazebo_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(rcl REQUIRED)
+find_package(rclcpp REQUIRED)
 find_package(std_srvs REQUIRED)
 find_package(tinyxml_vendor REQUIRED)
 
-include_directories(
-  include
-  ${gazebo_dev_INCLUDE_DIRS}
-)
 link_directories(
   ${gazebo_dev_LIBRARY_DIRS}
 )
@@ -36,15 +32,28 @@ add_library(gazebo_ros_node SHARED
   src/executor.cpp
   src/node.cpp
 )
+target_include_directories(gazebo_ros_node
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+    ${gazebo_dev_INCLUDE_DIRS}
+)
+
 ament_target_dependencies(gazebo_ros_node
   "gazebo_dev"
   "rclcpp"
+  "rcl"
 )
 ament_export_libraries(gazebo_ros_node)
 
 # gazebo_ros_utils
 add_library(gazebo_ros_utils SHARED
   src/utils.cpp
+)
+target_include_directories(gazebo_ros_utils
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
 )
 ament_target_dependencies(gazebo_ros_utils
   "gazebo_dev"
@@ -111,6 +120,20 @@ target_link_libraries(gazebo_ros_state
 )
 ament_export_libraries(gazebo_ros_state)
 
+# gazebo_ros_force_system
+add_library(gazebo_ros_force_system SHARED
+  src/gazebo_ros_force_system.cpp
+)
+ament_target_dependencies(gazebo_ros_force_system
+  "rclcpp"
+  "gazebo_dev"
+  "gazebo_msgs"
+)
+target_link_libraries(gazebo_ros_force_system
+  gazebo_ros_node
+)
+ament_export_libraries(gazebo_ros_force_system)
+
 ament_export_include_directories(include)
 ament_export_dependencies(rclcpp)
 ament_export_dependencies(gazebo_dev)
@@ -135,6 +158,7 @@ install(
 install(
   TARGETS
     gazebo_ros_factory
+    gazebo_ros_force_system
     gazebo_ros_init
     gazebo_ros_node
     gazebo_ros_properties
