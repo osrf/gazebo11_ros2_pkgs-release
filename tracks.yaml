@@ -62,7 +62,7 @@ tracks:
       :{release_inc}
     devel_branch: eloquent
     last_version: 3.4.3
-    name: upstream
+    name: gazebo11_ros2_pkgs
     patches: null
     release_inc: '1'
     release_repo_url: null
