@@ -107,42 +107,6 @@ target_compile_definitions(multi_camera_plugin
   PRIVATE BUILDING_DLL
 )
 
-# gazebo_ros_multi_camera
-add_library(gazebo_ros_multi_camera SHARED
-  src/gazebo_ros_multi_camera.cpp
-)
-ament_target_dependencies(gazebo_ros_multi_camera
-  "camera_info_manager"
-  "gazebo_dev"
-  "gazebo_ros"
-  "image_transport"
-  "rclcpp"
-  "sensor_msgs"
-  "std_msgs"
-)
-target_link_libraries(gazebo_ros_multi_camera
-  multi_camera_plugin
-)
-ament_export_libraries(gazebo_ros_multi_camera)
-
-# gazebo_ros_depth_camera
-add_library(gazebo_ros_depth_camera SHARED
-  src/gazebo_ros_depth_camera.cpp
-)
-ament_target_dependencies(gazebo_ros_depth_camera
-  "camera_info_manager"
-  "gazebo_dev"
-  "gazebo_ros"
-  "image_transport"
-  "rclcpp"
-  "sensor_msgs"
-  "std_msgs"
-)
-target_link_libraries(gazebo_ros_depth_camera
-  DepthCameraPlugin
-)
-ament_export_libraries(gazebo_ros_depth_camera)
-
 # gazebo_ros_camera
 add_library(gazebo_ros_camera SHARED
   src/gazebo_ros_camera.cpp
@@ -158,8 +122,8 @@ ament_target_dependencies(gazebo_ros_camera
 )
 target_link_libraries(gazebo_ros_camera
   CameraPlugin
-  gazebo_ros_depth_camera
-  gazebo_ros_multi_camera
+  DepthCameraPlugin
+  multi_camera_plugin
 )
 ament_export_libraries(gazebo_ros_camera)
 
@@ -388,6 +352,17 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
+if(NOT WIN32)
+  if(NOT APPLE)
+    set(
+      AMENT_CMAKE_ENVIRONMENT_HOOKS_DESC_gazebo_plugins
+      "prepend-non-duplicate;LD_LIBRARY_PATH;${GAZEBO_PLUGIN_PATH}")
+  else()
+    set(
+      AMENT_CMAKE_ENVIRONMENT_HOOKS_DESC_gazebo_plugins
+      "prepend-non-duplicate;DYLD_LIBRARY_PATH;${GAZEBO_PLUGIN_PATH}")
+  endif()
+endif()
 ament_environment_hooks("${CMAKE_CURRENT_SOURCE_DIR}/env-hooks/gazebo_plugins.sh.in")
 
 ament_package()
@@ -399,7 +374,6 @@ install(TARGETS
     gazebo_ros_ackermann_drive
     gazebo_ros_bumper
     gazebo_ros_camera
-    gazebo_ros_depth_camera
     gazebo_ros_diff_drive
     gazebo_ros_elevator
     gazebo_ros_force
@@ -410,7 +384,6 @@ install(TARGETS
     gazebo_ros_gps_sensor
     gazebo_ros_joint_pose_trajectory
     gazebo_ros_joint_state_publisher
-    gazebo_ros_multi_camera
     gazebo_ros_planar_move
     gazebo_ros_projector
     gazebo_ros_ray_sensor
