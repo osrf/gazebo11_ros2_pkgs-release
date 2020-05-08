@@ -39,7 +39,7 @@ class GazeboRosGpsSensorPrivate;
         <ros>
           <!-- publish to /gps/data -->
           <namespace>/gps</namespace>
-          <remapping>~/out:=data</remapping>
+          <argument>~/out:=data</argument>
         </ros>
       </plugin>
     </sensor>

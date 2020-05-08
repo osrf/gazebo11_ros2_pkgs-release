@@ -112,7 +112,7 @@
           <plugin name="contact_sensor" filename="libgazebo_ros_bumper.so">
             <ros>
               <namespace>demo</namespace>
-              <remapping>bumper_states:=bumper_demo</remapping>
+              <argument>bumper_states:=bumper_demo</argument>
             </ros>
             <frame_name>world</frame_name>
           </plugin>

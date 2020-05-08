@@ -43,7 +43,7 @@ class GazeboRosFTSensorPrivate;
         <namespace>/demo</namespace>
 
         <!-- Remap the default topic -->
-        <remapping>wrench:=wrench_demo</remapping>
+        <argument>wrench:=wrench_demo</argument>
 
       </ros>
 

@@ -37,7 +37,7 @@ class GazeboRosJointPoseTrajectoryPrivate;
         <namespace>/my_namespace</namespace>
 
         <!-- Remap the default topic -->
-        <remapping>set_joint_trajectory:=my_trajectory</remapping>
+        <argument>set_joint_trajectory:=my_trajectory</argument>
 
       </ros>
 

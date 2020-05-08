@@ -16,6 +16,7 @@
 #define GAZEBO_PLUGINS__MULTI_CAMERA_PLUGIN_HPP_
 
 #include <gazebo/common/Plugin.hh>
+#include <gazebo/rendering/Camera.hh>
 #include <gazebo/sensors/MultiCameraSensor.hh>
 #include <gazebo/util/system.hh>
 

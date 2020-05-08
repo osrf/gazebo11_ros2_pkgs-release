@@ -52,7 +52,7 @@
       <plugin name="gazebo_ros_p3d" filename="libgazebo_ros_p3d.so">
         <ros>
           <namespace>/demo</namespace>
-          <remapping>odom:=p3d_demo</remapping>
+          <argument>odom:=p3d_demo</argument>
         </ros>
         <body_name>box_link</body_name>
         <frame_name>sphere_link</frame_name>

@@ -398,8 +398,8 @@
 
         <ros>
           <namespace>/test</namespace>
-          <remapping>cmd_vel:=cmd_test</remapping>
-          <remapping>odom:=odom_test</remapping>
+          <argument>cmd_vel:=cmd_test</argument>
+          <argument>odom:=odom_test</argument>
         </ros>
 
         <!-- wheels -->

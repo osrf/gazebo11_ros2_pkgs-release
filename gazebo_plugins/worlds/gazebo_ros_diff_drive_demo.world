@@ -223,8 +223,8 @@
 
         <ros>
           <namespace>/demo</namespace>
-          <remapping>cmd_vel:=cmd_demo</remapping>
-          <remapping>odom:=odom_demo</remapping>
+          <argument>cmd_vel:=cmd_demo</argument>
+          <argument>odom:=odom_demo</argument>
         </ros>
 
         <!-- wheels -->

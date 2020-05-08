@@ -37,7 +37,7 @@ class GazeboRosP3DPrivate;
         <namespace>/demo</namespace>
 
         <!-- Remap the default topic -->
-        <remapping>odom:=p3d_demo</remapping>
+        <argument>odom:=p3d_demo</argument>
 
       </ros>
 

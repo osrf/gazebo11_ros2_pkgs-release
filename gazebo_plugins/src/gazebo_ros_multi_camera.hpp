@@ -1,4 +1,4 @@
-// Copyright 2012 Open Source Robotics Foundation
+// Copyright 2019 Open Source Robotics Foundation
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef GAZEBO_PLUGINS__GAZEBO_ROS_CAMERA_HPP_
-#define GAZEBO_PLUGINS__GAZEBO_ROS_CAMERA_HPP_
+#ifndef GAZEBO_ROS_MULTI_CAMERA_HPP_
+#define GAZEBO_ROS_MULTI_CAMERA_HPP_
 
-#include <gazebo/plugins/CameraPlugin.hh>
+#include <gazebo_plugins/multi_camera_plugin.hpp>
 #include <std_msgs/msg/empty.hpp>
 
 #include <memory>
@@ -23,23 +23,23 @@
 
 namespace gazebo_plugins
 {
-class GazeboRosCameraPrivate;
+class GazeboRosMultiCameraPrivate;
 
-/// A plugin that publishes raw images and camera info for generic camera sensors.
+/// A plugin that publishes images and camera info for multi camera sensors.
 /**
   Example Usage:
   \code{.xml}
     <plugin name="plugin_name" filename="libgazebo_ros_camera.so">
       <!-- Change namespace, camera name and topics so:
-           * Images are published to: /custom_ns/custom_camera/custom_image
-           * Camera info is published to: /custom_ns/custom_camera/custom_info
+           * Multi Images are published to: /custom_ns/custom_camera/camera_name/custom_image_raw
+           * Multi Camera info are published to: /custom_ns/custom_camera/camera_name/custom_camera_info
            * Trigger is received on: /custom_ns/custom_camera/custom_trigger
       -->
       <ros>
         <namespace>custom_ns</namespace>
-        <argument>image_raw:=custom_img</argument>
-        <argument>camera_info:=custom_info</argument>
-        <argument>image_trigger:=custom_trigger</argument>
+        <argument>custom_camera/camera_name/image_raw:=custom_camera/camera_name/custom_image_raw</argument>
+        <argument>custom_camera/camera_name/camera_info:=custom_camera/camera_name/custom_camera_info</argument>
+        <argument>custom_camera/image_trigger:=custom_camera/custom_trigger</argument>
       </ros>
 
       <!-- Set camera name. If empty, defaults to sensor name -->
@@ -55,34 +55,36 @@ class GazeboRosCameraPrivate;
     </plugin>
   \endcode
 */
-class GazeboRosCamera : public gazebo::CameraPlugin
+class GazeboRosMultiCamera : public MultiCameraPlugin
 {
 public:
   /// Constructor
-  GazeboRosCamera();
+  GazeboRosMultiCamera();
 
   /// Destructor
-  ~GazeboRosCamera();
+  ~GazeboRosMultiCamera();
 
-protected:
   // Documentation inherited
   void Load(gazebo::sensors::SensorPtr _sensor, sdf::ElementPtr _sdf) override;
 
-  /// Callback when camera produces a new image.
+protected:
+  /// Callback when multi camera produces a new image.
   /*
-   * \details This is called at the camera's update rate.
-   * \details Not called when the camera isn't active. For a triggered camera, it will only be
-   * called after triggered.
-   * \param[in] _image Image
-   * \param[in] _width Image width
-   * \param[in] _height Image height
-   * \param[in] _depth Image depth
-   * \param[in] _format Image format
-   */
-  void OnNewFrame(
+  * \details This is called at the multi camera's update rate.
+  * \details Not called when the camera isn't active. For a triggered multi camera, it will only be
+  * called after triggered.
+  * \param[in] _image Image
+  * \param[in] _width Image width
+  * \param[in] _height Image height
+  * \param[in] _depth Image depth
+  * \param[in] _format Image format
+  * \param[in] _camera_num Index number of camera
+  */
+
+  void OnNewMultiFrame(
     const unsigned char * _image,
     unsigned int _width, unsigned int _height,
-    unsigned int _depth, const std::string & _format) override;
+    unsigned int _depth, const std::string & _format, const int _camera_num) override;
 
   /// Callback when camera is triggered.
   void OnTrigger(const std_msgs::msg::Empty::SharedPtr _dummy);
@@ -96,8 +98,8 @@ protected:
 
 private:
   /// Private data pointer
-  std::unique_ptr<GazeboRosCameraPrivate> impl_;
+  std::unique_ptr<GazeboRosMultiCameraPrivate> impl_;
 };
 }  // namespace gazebo_plugins
 
-#endif  // GAZEBO_PLUGINS__GAZEBO_ROS_CAMERA_HPP_
+#endif  // GAZEBO_ROS_MULTI_CAMERA_HPP_
