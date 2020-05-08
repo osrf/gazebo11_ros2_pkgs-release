@@ -1,0 +1,25 @@
+From 86e10fd7cd27d7e7bdc7fea44798f47faa1d342c Mon Sep 17 00:00:00 2001
+From: Jose Luis Rivero <jrivero@osrfoundation.org>
+Date: Fri, 8 May 2020 15:13:47 +0200
+Subject: [PATCH 2/2] Set up a conflict with official ROS packages and the two
+ previous gazebo versions
+
+---
+ debian/control.em | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/debian/control.em b/debian/control.em
+index 0651d2c..a59d263 100644
+--- a/debian/control.em
++++ b/debian/control.em
+@@ -9,6 +9,7 @@ Standards-Version: 3.9.2
+ Package: @(Package.replace('gazebo-','gazebo11-'))
+ Architecture: any
+ Depends: ${shlibs:Depends}, ${misc:Depends}, @(', '.join(Depends))
++Conflicts: @(Package) , @(Package.replace('gazebo-','gazebo10-')), @(Package.replace('gazebo-','gazebo9-'))
+ @[if Conflicts]Conflicts: @(', '.join(Conflicts))@\n@[end if]@
+ @[if Replaces]Replaces: @(', '.join(Replaces))@\n@[end if]@
+ Description: @(Description)
+-- 
+2.17.1
+
